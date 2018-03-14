@@ -128,8 +128,8 @@ fprintf('\n');
 % Recall that the first column of X is all-ones. Thus, it does
 % not need to be normalized.
 price = 0; % You should change this
-
-
+elements = [1, (1650-mu(1))/sigma(1) , (3-mu(2))/sigma(2)];  % X的第一列都是1，所以不用均值归一化
+price = elements * theta;
 % ============================================================
 
 fprintf(['Predicted price of a 1650 sq-ft, 3 br house ' ...
