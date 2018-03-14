@@ -19,10 +19,12 @@ for iter = 1:num_iters
     predictions = X * theta;
     updates = X' * (predictions - y);
     theta = theta - alpha * (1 / m) * updates;
+    
+    % theta = theta - alpha * (1/m) * sum(sqrt(sqerrors)) * X;
+    
+    % theta - (alpha/m) * (X' * (X * theta - y));
 
-
-
-
+    % theta = theta - (alpha/m) * (X' * (X * theta - y));
 
 
 

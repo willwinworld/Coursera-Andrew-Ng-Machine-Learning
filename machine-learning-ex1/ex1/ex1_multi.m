@@ -82,8 +82,8 @@ X = [ones(m, 1) X];
 fprintf('Running gradient descent ...\n');
 
 % Choose some alpha value
-alpha = 0.01;
-num_iters = 400;
+alpha = 1;
+num_iters = 50;
 
 % Init Theta and Run Gradient Descent 
 theta = zeros(3, 1);
@@ -100,6 +100,29 @@ fprintf('Theta computed from gradient descent: \n');
 fprintf(' %f \n', theta);
 fprintf('\n');
 
+%hold on;
+%theta = zeros(3, 1);
+%[theta,  J_history] = gradientDescentMulti(X, y,  theta,  alpha*3,  num_iters);
+%plot(1:numel(J_history), J_history, '-g', 'LineWidth', 2);
+%fprintf('Theta computed from gradient descent: \n');
+%fprintf(' %f \n', theta);
+%fprintf('\n');
+
+
+%theta = zeros(3, 1);
+%[theta,  J_history] = gradientDescentMulti(X, y,  theta,  alpha*9,  num_iters);
+%plot(1:numel(J_history), J_history, '-y', 'LineWidth', 2);
+%fprintf('Theta computed from gradient descent: \n');
+%fprintf(' %f \n', theta);
+%fprintf('\n');
+
+
+%theta = zeros(3, 1);
+%[theta,  J_history] = gradientDescentMulti(X, y,  theta,  1,  num_iters);
+%plot(1:numel(J_history), J_history, '-r', 'LineWidth', 2);
+%fprintf('Theta computed from gradient descent: \n');
+%fprintf(' %f \n', theta);
+%fprintf('\n');
 % Estimate the price of a 1650 sq-ft, 3 br house
 % ====================== YOUR CODE HERE ======================
 % Recall that the first column of X is all-ones. Thus, it does
