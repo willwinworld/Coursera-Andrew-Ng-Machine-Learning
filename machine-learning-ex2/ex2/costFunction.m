@@ -23,7 +23,7 @@ h = sigmoid(X * theta);
 J = (1 / m) * sum(-y .* log(h) - (1 - y) .* log(1 - h));
 grad = (1 / m) * sum((h - y) .* X);
 
-% is equivalent to
+% is equivalent to, 点乘等价于向量乘法
 h = sigmoid(X * theta);
 J = (1 / m) * (-y' * log(h) - (1 - y)' * log(1 - h));
 grad = (1 / m) * X' * (h - y);
