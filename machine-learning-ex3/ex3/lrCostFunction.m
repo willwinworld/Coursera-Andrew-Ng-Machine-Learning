@@ -41,49 +41,49 @@ theta_reg = [0 ; shift_theta];
 regularized_part = (lambda / (2 * m)) * sum(theta_reg .^ 2);
 J = (1 / m) * sum(-y .* log(h) - (1 - y) .* log(1 - h)) + regularized_part;
 grad_regularized_part = (lambda / m) * theta_reg;
-grad = (1 / m) * (sum((h - y) .* X))' + grad_regularized_part;  % 这样写有问题
-printf("%s", "\n")
-printf("%s", '---------------------');
-printf("%s", "\n")
-printf("%d", rows(sum((h - y) .* X)));
-printf("%s", "\n")
-printf("%s", '---------------------');
-printf("%s", "\n")
-printf("%d", columns(sum((h - y) .* X)));
-printf("%s", "\n")
-printf("%s", '---------------------');
-printf("%s", "\n")
-printf("%d", sum((h - y) .* X));
-printf("%s", "\n")
-printf("%s", '---------------------');
-printf("%s", "\n")
-printf("%d", (h - y) .* X);
-printf("%s", "\n")
-printf("%s", '---------------------');
-printf("%s", "\n")
-printf("%s", '---------------------');
-printf("%s", "\n")
-printf("%d", rows((h - y) .* X));
-printf("%s", "\n")
-printf("%s", '---------------------');
-printf("%s", "\n")
-printf("%d", columns((h - y) .* X));
-printf("%s", "\n")
-printf("%s", '---------------------');
-printf("%s", "\n")
-printf("%s", '---------------------');
-printf("%s", "\n")
-printf("%d", (X' * (h - y)));
-printf("%s", "\n")
-printf("%s", '---------------------');
-printf("%s", "\n")
-printf("%d", rows(X' * (h - y)));
-printf("%s", "\n")
-printf("%s", '---------------------');
-printf("%s", "\n")
-printf("%d", columns(X' * (h - y)));
-printf("%s", "\n")
-printf("%s", '---------------------');
+grad = (1 / m) * (sum((h - y) .* X))' + grad_regularized_part;  % 这样写没有问题
+%printf("%s", "\n")
+%printf("%s", '---------------------');
+%printf("%s", "\n")
+%printf("%d", rows(sum((h - y) .* X)));
+%printf("%s", "\n")
+%printf("%s", '---------------------');
+%printf("%s", "\n")
+%printf("%d", columns(sum((h - y) .* X)));
+%printf("%s", "\n")
+%printf("%s", '---------------------');
+%printf("%s", "\n")
+%printf("%d", sum((h - y) .* X));
+%printf("%s", "\n")
+%printf("%s", '---------------------');
+%printf("%s", "\n")
+%printf("%d", (h - y) .* X);
+%printf("%s", "\n")
+%printf("%s", '---------------------');
+%printf("%s", "\n")
+%printf("%s", '---------------------');
+%printf("%s", "\n")
+%printf("%d", rows((h - y) .* X));
+%printf("%s", "\n")
+%printf("%s", '---------------------');
+%printf("%s", "\n")
+%printf("%d", columns((h - y) .* X));
+%printf("%s", "\n")
+%printf("%s", '---------------------');
+%printf("%s", "\n")
+%printf("%s", '---------------------');
+%printf("%s", "\n")
+%printf("%d", (X' * (h - y)));
+%printf("%s", "\n")
+%printf("%s", '---------------------');
+%printf("%s", "\n")
+%printf("%d", rows(X' * (h - y)));
+%printf("%s", "\n")
+%printf("%s", '---------------------');
+%printf("%s", "\n")
+%printf("%d", columns(X' * (h - y)));
+%printf("%s", "\n")
+%printf("%s", '---------------------');
 %grad = (1 / m) * (X' * (h - y)) + grad_regularized_part; % 这样是对的
 
 %h = sigmoid(X * theta);
