@@ -61,9 +61,9 @@ Theta2_grad = zeros(size(Theta2));
 %               the regularization separately and then add them to Theta1_grad
 %               and Theta2_grad from Part 2.
 %
-X = [ones(m, 1), X];  % adding the bias unit for the input values
+X = [ones(m, 1) X];  % adding the bias unit for the input values
 a_2 = sigmoid(X * Theta1');  % define the second layer activation units
-a_2 = [ones(m, 1), a_2];  % add the bias unit to the second activation layer
+a_2 = [ones(m, 1) a_2];  % add the bias unit to the second activation layer
 h = sigmoid(a_2 * Theta2'); % define the output layer activation units
 
 % recode the labels as vectors containing only values 0 or 1
@@ -88,12 +88,14 @@ for i = 1:m,
     Y(i, :) = I(y(i), :);       % construct the Y matrix
 end
 
-J = (1 / m) * sum(sum(-Y' * log(h) - (1 - Y)' * log(1 - h)));
 
-
-
-
-
+J = - (1 / m) * sum( sum( Y .* log(h) + (1 - Y) .* log(1 - h)));
+temp_theta_1 = Theta1;
+temp_theta_2 = Theta2;
+temp_theta_1(:, 1) = 0;
+temp_theta_2(:, 1) = 0;
+regularization_term = (lambda / (2 * m)) * (sum(sum(temp_theta_1 .* temp_theta_1)) + sum(sum(temp_theta_2 .* temp_theta_2)));
+J = J + regularization_term;
 
 
 
