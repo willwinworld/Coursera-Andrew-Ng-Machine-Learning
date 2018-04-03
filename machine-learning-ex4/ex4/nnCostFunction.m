@@ -61,10 +61,12 @@ Theta2_grad = zeros(size(Theta2));
 %               the regularization separately and then add them to Theta1_grad
 %               and Theta2_grad from Part 2.
 %
-X = [ones(m, 1) X];  % adding the bias unit for the input values
-a_2 = sigmoid(X * Theta1');  % define the second layer activation units
-a_2 = [ones(m, 1) a_2];  % add the bias unit to the second activation layer
-h = sigmoid(a_2 * Theta2'); % define the output layer activation units
+%X = [ones(m, 1) X];  % adding the bias unit for the input values
+%a_2 = sigmoid(X * Theta1');  % define the second layer activation units
+%a_2 = [ones(m, 1) a_2];  % add the bias unit to the second activation layer
+%h = sigmoid(a_2 * Theta2'); % define the output layer activation units
+
+
 
 % recode the labels as vectors containing only values 0 or 1
 % Now we need to define Y to use in our cost function. Y should be a matrix consisted of
@@ -89,20 +91,47 @@ for i = 1:m,
 end
 
 
-J = - (1 / m) * sum( sum( Y .* log(h) + (1 - Y) .* log(1 - h)));
-temp_theta_1 = Theta1;
-temp_theta_2 = Theta2;
-temp_theta_1(:, 1) = 0;
-temp_theta_2(:, 1) = 0;
-regularization_term = (lambda / (2 * m)) * (sum(sum(temp_theta_1 .* temp_theta_1)) + sum(sum(temp_theta_2 .* temp_theta_2)));
-J = J + regularization_term;
+%J = - (1 / m) * sum( sum( Y .* log(h) + (1 - Y) .* log(1 - h)));
+%temp_theta_1 = Theta1;
+%temp_theta_2 = Theta2;
+%temp_theta_1(:, 1) = 0;
+%temp_theta_2(:, 1) = 0;
+%regularization_term = (lambda / (2 * m)) * (sum(sum(temp_theta_1 .* temp_theta_1)) + sum(sum(temp_theta_2 .* temp_theta_2)));
+%J = J + regularization_term;
+%
+%for t = 1 : m
+%    X(t,)
+
+% feedforward
+a1 = [ones(m, 1) X];
+z2 = a1 * Theta1';
+a2 = [ones(m, 1) sigmoid(z2)];
+z3 = a2 * Theta2';
+a3 = sigmoid(z3);
+h = a3;
 
 
+% calculate penalty
+p = sum(sum(Theta1(:, 2:end).^2, 2))+sum(sum(Theta2(:, 2:end).^2, 2));
+% remove bias term, matlab index start at 1, thus start at 2 
 
+% calculate J
+J = sum(sum((-Y).*log(h) - (1-Y).*log(1-h), 2))/m + lambda*p/(2*m);
 
+% calculate sigmas, backpropagation
+sigma3 = a3 .- Y;
+sigma2 = (sigma3*Theta2) .* sigmoidGradient([ones(size(z2, 1), 1) z2]);
+sigma2 = sigma2(:, 2:end);
 
+% accumulate gradients 
+delta_1 = (sigma2' * a1);
+delta_2 = (sigma3' * a2);
 
-
+% calculate regularized gradient
+p1 = (lambda / m) * [zeros(size(Theta1, 1), 1) Theta1(:, 2:end)];
+p2 = (lambda / m) * [zeros(size(Theta2, 1), 1) Theta2(:, 2:end)];
+Theta1_grad = delta_1 ./ m + p1;
+Theta2_grad = delta_2 ./ m + p2;
 % -------------------------------------------------------------
 
 % =========================================================================
