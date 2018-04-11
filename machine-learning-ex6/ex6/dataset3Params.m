@@ -23,12 +23,53 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
+% As per page 7 of the instructions, we are going to look at 8
+% different values for both C and sigma. As a result, we will use a
+% nested for loop. Remember that Xval and yval are the X and y values
+% for our cross training dataset.
+testValues = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
+for i in length(testValues),  % Test all possible values for C
+  for j in length(testValues),  % Test for sigma
+    
+    % Use the svmTrain function to get model output for each
+	  % possible combination of i,j (C, sigma). Note that in
+	  % svmTrain we have to pass in a kernelFunction
+    
+    testModel = svmTrain(X, y, testValues(i), @(x1, x2) gaussianKernel(x1,x2,testValues(j)));
+    
+    % Now we can call svmPredict to get the prediction vectors
+    
+    testPredictions = svmPredict(testModel, Xval);
+    
+    % Now we can calculate the prediction error using the above
+	  % formula
+    
+    crossValPredictErrors(i, j) = mean(double(testPredictions ~= yval));
+  end;
+end;
 
+[minColumnError, minColumnErrorIndex] = min(crossValPredictErrors);
+[minError, minErrorIndex] = min(minColumnError);
 
+C = testValues(minColumnErrorIndex(minErrorIndex));
+sigma = testValues(minErrorIndex);
 
+% This is a tiny bit complicated, so here is what is going on.
+% crossValPredictErrors is an 8x8 matrix returned from running
+% svmTrain on every possible combination of C and sigma defined in
+% testValues. 
 
+% minColumnError returns the minimum error from each
+% column, and minColumnErrorIndex returns where along that column that
+% minimum error value can be found. minColumnError returns as a 1x8
+% vector of minimum error values.
 
+% From minColumnError, we extract the global minimum as minError, and
+% we find its index with minErrorIndex. Now, we have the row and
+% column index for the global minimum, so we take those values and
+% apply them to the testValues vector to get the best possible values
+% for C and for sigma.
 
-% =========================================================================
+%=========================================================================
 
 end
