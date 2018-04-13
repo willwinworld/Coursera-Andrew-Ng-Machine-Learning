@@ -28,8 +28,8 @@ sigma = 0.3;
 % nested for loop. Remember that Xval and yval are the X and y values
 % for our cross training dataset.
 testValues = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
-for i in length(testValues),  % Test all possible values for C
-  for j in length(testValues),  % Test for sigma
+for i=1:length(testValues),  % Test all possible values for C
+  for j=1:length(testValues),  % Test for sigma
     
     % Use the svmTrain function to get model output for each
 	  % possible combination of i,j (C, sigma). Note that in
